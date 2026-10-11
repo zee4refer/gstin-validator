@@ -1,0 +1,12 @@
+const assert = require('assert');
+const { validateGSTIN, checkDigit } = require('./gstin');
+let r = validateGSTIN('27AAPFU0939F1ZV');
+assert.ok(r.valid, JSON.stringify(r.errors));
+assert.strictEqual(r.state, 'Maharashtra');
+assert.strictEqual(r.panType, 'Firm / LLP');
+r = validateGSTIN('27AAPFU0939F1ZW');
+assert.ok(!r.valid);
+assert.strictEqual(r.expectedCheckDigit, 'V');
+assert.ok(!validateGSTIN('27AAPFU0939F1Z').valid);
+assert.strictEqual(validateGSTIN(' 27aapfu0939f1zv ').valid, true);
+console.log('gstin: all tests passed');
